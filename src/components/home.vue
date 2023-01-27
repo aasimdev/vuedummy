@@ -67,14 +67,82 @@
 
 
 
-     
+
     <!---------------------------7-------------------------------->
     <!-- css binding -->
-
+    <!-- 
     <h2 class="heading" :class="{active:applyclass}">
         Home Components
     </h2>
-    <button v-on:click="applyclass=!applyclass">Apply Class</button>
+    <button v-on:click="applyclass=!applyclass">Apply Class</button> -->
+
+
+
+    <!---------------------------8-------------------------------->
+    <!-- Simple form  and validation-->
+
+    
+    <ul>
+        <li v-for="item in error" :key="item">
+        {{ item }} not valid
+     </li>
+    </ul>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <h1 class="mb-3">Contact Us</h1>
+            <form>
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label for="your-email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="your-email" name="your-email" v-model="form.email"
+                            required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Your Password</label>
+                        <input type="password" class="form-control" id="password" v-model="form.password"
+                            name="password">
+                    </div>
+
+                    <div class="col-md-6">
+                        <select class="selectpicker" v-model="form.gender" data-show-subtext="true" data-live-search="true">
+                            <option data-subtext="Rep California">Male</option>
+                            <option data-subtext="Sen California">Female</option>
+                            <option data-subtext="Sen Massacusetts">Custom</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>java</label>
+                        <input type="checkbox" v-model="form.technology" >
+                        <br>
+                        <label>.net</label>
+                        <input type="checkbox" v-model="form.technology" >
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-dark w-100 fw-bold"
+                                    v-on:click="login()">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+      <!------------------------------------9------------------------------------->
+      <!-- //computed property -->
+
+      <!-- <h1>Computed Property</h1>
+      <h2>{{ getResult }}</h2>
+      <h2>{{ getResult }}</h2>
+      <h2>{{ getResult }}</h2>
+      <h2>{{ getResult }}</h2> -->
+
+
 
 </template>
 <script>
@@ -191,15 +259,63 @@ export default {
     // css binding
 
 
-    data(){
-        return{
-            applyclass: false
+    // data(){
+    //     return{
+    //         applyclass: false
+    //     }
+    // },
+
+
+
+    // <!---------------------------8--------------------------------->
+    // simple form
+    data() {
+        return {
+            form: {
+                email: "",
+                password: "",
+                gender: "",
+                technology: [],
+            },
+            error:[]
         }
     },
+    methods: {
+        login() {
+            this.error=[];
+            for(const item in this.form){
+                if(this.form[item]==="" || this.form[item].length ===0){
+                    this.error.push(item);
+                }
+
+            }
+            if(this.error.length===0){
+                alert("data submitted successfully")
+            }
+            console.warn(this.form,this.error);
+        }
+    },
+
+    //  <!-------------------------------9-------------------------------------->
+    // data() {
+    //      return{
+    //         dollar: "1000",
+    //         rupee: "250",
+    //         discount: "10",
+    //      }
+    // },
+    // computed: {
+    //     getResult() {
+    //         return (this.dollar*this.rupee)-this.discount
+    //     }
+    // }
+
+
+
 }
 </script>
 <style>
-.active{
+.active {
     color: blue;
 }
 </style>
